@@ -8,7 +8,7 @@ def parameter_parser():
     parser = argparse.ArgumentParser(description="PigeonsSSN")
 
     parser.add_argument('--task',
-                        default="transfer",
+                        default="train",
                         type=str,
                         help="The task to perform:"
                              "1) train: create and train a new SSN model; "
@@ -18,44 +18,12 @@ def parameter_parser():
                              "feature extraction of fine tuning.")
 
     parser.add_argument('--input_path',
-                        # Landon & Davison
-                        default="D:/DataSets/Pigeons/LandonAndDavison/Cond1/Pigeons/samples_csv_ratio/",
-                        # default="D:/DataSets/Pigeons/LandonAndDavison/Cond6/Pigeons/Generalisation_1_10days/samples_csv_ratio",
-                        # Davison & Baum
-                        # default="D:/DataSets/Pigeons/DavisonAndBaum/Cond1/samples_csv_ratio",
-                        # default="D:/DataSets/Pigeons/DavisonAndBaum/Cond4/samples_csv_ratio",
-                        # default="D:/DataSets/Pigeons/DavisonAndBaum/Cond9/samples_csv_ratio",
+                        default="D:/DataSets/Pigeons/csv_samples/",
                         type=str, help="The directory that contains the data sample files (sam*.csv) and the file "
                                        "tar_class.csv'' having their class labels")
     parser.add_argument('--output_path',
                         # Landon & Davison
-                        default="D:/DataSets/Pigeons/LandonAndDavison/Cond1/Pigeons/samples_csv_ratio_output/",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Models",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond6/py_results no seed/Models",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Recall/J&D C6 10Days",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Recall/D&B C1",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Recall/D&B C4",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Recall/D&B C9",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Transfered",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond6/py_results no seed/Transfered",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond6/py_results no seed/Transfered/From D&B C1",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond6/py_results no seed/Transfered/From D&B C4",
-                        # Davison & Baum
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Models",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Models",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond9/py_results no seed/Models",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Recall/D&B C4",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Recall/D&B C9",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Recall/J&D C1",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Recall/J&D C6",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Recall/D&B C9",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Recall/J&D C1",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Recall/J&D C6",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Transfered",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Transfered",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Transfered/From D&B C9",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond9/py_results no seed/Transfered/From L&D C1",
-
+                        default="D:/DataSets/Pigeons/csv_samples/output/",
                         type=str,
                         help="The main directory to save the results of the experiments. These directory must contain "
                              "two directories:'feature_extraction' and 'fine_tuning'. Additionally, the 'fine_tuning' "
@@ -86,18 +54,13 @@ def parameter_parser():
                              "candidate solution). Pop_size must be less than the number of rows in the specified "
                              "column")
     parser.add_argument('--max_iterations',
-                        default=3, #200
+                        default=200
                         type=int,
                         help="The maximum number of iterations of the Differential Evolution")
 
     # Recall and transfer learning model arguments
     parser.add_argument('--model_file',
-                        # Landon & Davison
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Jason & Davison/Cond1/py_results no seed/Models/results.csv",
-                        default="D:/DataSets/Pigeons/Transfer learning/Experiments/Landon & Davison/Cond1/py_results no seed/Models/results.csv",
-                        # Davison & Baum
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond1/py_results no seed/Models/results.csv",
-                        # default="D:/DataSets/Pigeons/Transfer learning/Experiments/Davison & Baum/Cond4/py_results no seed/Models/results.csv",
+                        default="D:/DataSets/Pigeons/Models/results.csv",
                         type=str, help="The results of a previously training model to use for recall or transfer learning")
     parser.add_argument('--model_ids',
                         default=None, # [1,2] All models (10 models since the outer loop of the nested cross validation was set to 10)
@@ -111,7 +74,6 @@ def parameter_parser():
                         default="best_firing_rates",
                         type=str,
                         help="Column that has the average firing rates for each class.")
-
 
     # Transfer learning arguments
     parser.add_argument('--transfer_type',
